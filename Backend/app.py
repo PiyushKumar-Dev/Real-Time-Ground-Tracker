@@ -109,3 +109,48 @@ def telemetry():
 # -----------------------------
 if __name__ == "__main__":
     app.run(debug=True)
+
+    # ===== FUTURE SOCKET VERSION =====
+
+# import socket
+# import threading
+
+# client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# client.connect(("127.0.0.1", 8100))
+# stream = client.makefile("rb")
+
+# latest_telemetry = {}
+
+# def telemetry_listener():
+#     global latest_telemetry
+#
+#     while True:
+#         raw_packet = stream.readline().decode().strip()
+#
+#         cleaned_packet = cleaner.clean_packet(raw_packet)
+#
+#         validation = validator.validate(cleaned_packet)
+#
+#         if validation["valid"]:
+#             cleaned_packet["latitude"] = CoordinateConverter.convert_latitude(
+#                 cleaned_packet["latitude"]
+#             )
+#
+#             cleaned_packet["longitude"] = CoordinateConverter.convert_longitude(
+#                 cleaned_packet["longitude"]
+#             )
+#
+#             latest_telemetry = cleaned_packet
+#
+# @app.route("/telemetry")
+# def telemetry():
+#     return jsonify(latest_telemetry)
+#
+# if __name__ == "__main__":
+#     thread = threading.Thread(
+#         target=telemetry_listener,
+#         daemon=True
+#     )
+#
+#     thread.start()
+#     app.run(debug=True)
